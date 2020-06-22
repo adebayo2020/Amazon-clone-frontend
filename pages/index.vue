@@ -83,7 +83,7 @@ export default {
       return {
         products: response.products
       };
-    } catch {}
+    } catch (err) {}
   }
 };
 </script>
