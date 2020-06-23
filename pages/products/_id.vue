@@ -113,19 +113,23 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, params }) {
     try {
       let categories = $axios.$get("http://localhost:3000/api/categories");
       let owners = $axios.$get("http://localhost:3000/api/owners");
+      let product = $axios.$get(
+        `http://localhost:3000/api/products/${params.id}`
+      );
 
-      const [catResponse, ownerResponse] = await Promise.all([
+      const [catResponse, ownerResponse, productResponse] = await Promise.all([
         categories,
-        owners
+        owners,
+        product
       ]);
-
       return {
         categories: catResponse.categories,
-        owners: ownerResponse.owners
+        owners: ownerResponse.owners,
+        product: productResponse.product
       };
     } catch (err) {
       console.log(err);
